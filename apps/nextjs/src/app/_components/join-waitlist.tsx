@@ -10,16 +10,30 @@ import { api } from "~/trpc/react";
 export const JoinWaitlist = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   const joinWaitlist = api.post.joinWaitlist.useMutation({
     onError: (error) => {
       setError(error.message);
     },
+    onSuccess: ({ count }) => {
+      setEmail("");
+      setError(null);
+      setMessage(
+        `You have been added to the waitlist! You're number ${count} in line.`,
+      );
+    },
   });
 
   return (
-    <div className="w-full max-w-80">
-      <div className="relative mt-8 w-full">
+    <div className="w-full max-w-[340px]">
+      <form
+        className="relative mt-8 w-full"
+        onSubmit={(e) => {
+          e.preventDefault();
+          email.match(/.+@.+\..+/) && joinWaitlist.mutate({ email });
+        }}
+      >
         <Input
           type="email"
           className="peer h-12 w-full pl-12"
@@ -34,10 +48,7 @@ export const JoinWaitlist = () => {
         <Button
           className="absolute right-1 top-1"
           size="icon"
-          onClick={() =>
-            email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/) &&
-            joinWaitlist.mutate({ email })
-          }
+          type="submit"
           disabled={joinWaitlist.isPending}
         >
           {joinWaitlist.isPending ? (
@@ -46,8 +57,9 @@ export const JoinWaitlist = () => {
             <ArrowRight size={24} />
           )}
         </Button>
-      </div>
+      </form>
       {error && <p className="mr-auto mt-2 text-sm text-red-600">{error}</p>}
+      {message && <p className="mr-auto mt-2 text-sm">{message}</p>}
     </div>
   );
 };

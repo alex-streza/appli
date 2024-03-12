@@ -9,12 +9,12 @@ export const waitlistRouter = createTRPCRouter({
   joinWaitlist: publicProcedure
     .input(z.object({ email: z.string().email() }))
     .mutation(async ({ input, ctx }) => {
-      const waitlistEntry = await ctx.db
+      const waitlistEntries = await ctx.db
         .select()
         .from(schema.waitlists)
         .where(eq(schema.waitlists.email, input.email));
 
-      if (waitlistEntry) {
+      if (waitlistEntries.length > 0) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "You are already on the waitlist. A bit eager, aren't we?",
@@ -30,7 +30,7 @@ export const waitlistRouter = createTRPCRouter({
         .from(schema.waitlists);
 
       return {
-        count: waitlistsCount,
+        count: waitlistsCount?.[0]?.value ?? 0,
       };
     }),
 });
