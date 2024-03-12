@@ -1,10 +1,9 @@
 {
-  "name": "@acme/tailwind-config",
+  "name": "@appli/tailwind-config",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
-    "./native": "./native.ts",
     "./web": "./web.ts"
   },
   "license": "MIT",
@@ -20,9 +19,9 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:^0.2.0",
-    "@acme/prettier-config": "workspace:^0.1.0",
-    "@acme/tsconfig": "workspace:^0.1.0",
+    "@appli/eslint-config": "workspace:^0.2.0",
+    "@appli/prettier-config": "workspace:^0.1.0",
+    "@appli/tsconfig": "workspace:^0.1.0",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3"
@@ -30,8 +29,8 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@acme/eslint-config/base"
+      "@appli/eslint-config/base"
     ]
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@appli/prettier-config"
 }

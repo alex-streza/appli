@@ -1,7 +1,7 @@
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
-import { appRouter, createTRPCContext } from "@acme/api";
-import { auth } from "@acme/auth";
+import { appRouter, createTRPCContext } from "@appli/api";
 
 export const runtime = "edge";
 
@@ -24,14 +24,19 @@ export const OPTIONS = () => {
   return response;
 };
 
-const handler = auth(async (req) => {
+const handler = async (req: Request) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   const response = await fetchRequestHandler({
     endpoint: "/api/trpc",
     router: appRouter,
     req,
     createContext: () =>
       createTRPCContext({
-        session: req.auth,
+        session: {
+          user,
+        },
         headers: req.headers,
       }),
     onError({ error, path }) {
@@ -41,6 +46,6 @@ const handler = auth(async (req) => {
 
   setCorsHeaders(response);
   return response;
-});
+};
 
 export { handler as GET, handler as POST };

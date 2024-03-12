@@ -1,3 +1,4 @@
+import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1)
@@ -10,9 +11,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import type { Session } from "@acme/auth";
-import { auth } from "@acme/auth";
-import { db } from "@acme/db";
+import { db } from "@appli/db";
 
 /**
  * 1. CONTEXT
@@ -26,11 +25,13 @@ import { db } from "@acme/db";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: {
+export const createTRPCContext = (opts: {
   headers: Headers;
-  session: Session | null;
+  session: {
+    user: KindeUser;
+  } | null;
 }) => {
-  const session = opts.session ?? (await auth());
+  const session = opts.session;
   const source = opts.headers.get("x-trpc-source") ?? "unknown";
 
   console.log(">>> tRPC Request from", source, "by", session?.user);

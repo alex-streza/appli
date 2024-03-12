@@ -1,19 +1,26 @@
-import { Client } from "@planetscale/database";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 
-import * as auth from "./schema/auth";
-import * as post from "./schema/post";
+import * as application from "./schema/application";
+import * as resumes from "./schema/resume";
+import * as users from "./schema/user";
+import * as waitlists from "./schema/waitlist";
 
-export const schema = { ...auth, ...post };
+export const schema = {
+  ...application,
+  ...waitlists,
+  ...resumes,
+  ...users,
+};
 
-export { mySqlTable as tableCreator } from "./schema/_table";
+export { pgTable as tableCreator } from "./schema/_table";
 
 export * from "drizzle-orm";
 
-const psClient = new Client({
-  host: process.env.DB_HOST!,
-  username: process.env.DB_USERNAME!,
-  password: process.env.DB_PASSWORD!,
-});
+const connectionString = process.env.DATABASE_URL;
 
-export const db = drizzle(psClient, { schema });
+// Disable prefetch as it is not supported for "Transaction" pool mode
+const client = postgres(connectionString, { prepare: false });
+export const db = drizzle(client, {
+  schema,
+});

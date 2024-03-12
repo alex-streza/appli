@@ -1,7 +1,7 @@
-import type { CxOptions } from "class-variance-authority";
-import { cx } from "class-variance-authority";
-import { twMerge } from "tailwind-merge";
+import { Button } from "./components/button";
+import { GridDetail } from "./components/grid-detail";
+import { InfiniteMovingCards } from "./components/infinite-moving-cards";
+import { Input } from "./components/input";
+import { Logo } from "./components/logo";
 
-const cn = (...inputs: CxOptions) => twMerge(cx(inputs));
-
-export { cn };
+export { Button, Logo, Input, GridDetail, InfiniteMovingCards };

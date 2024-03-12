@@ -1,5 +1,5 @@
 {
-  "name": "@acme/api",
+  "name": "@appli/api",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,17 +14,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/auth": "workspace:^0.1.0",
-    "@acme/db": "workspace:^0.1.0",
-    "@acme/validators": "workspace:^0.1.0",
+    "@appli/db": "workspace:^0.1.0",
+    "@appli/validators": "workspace:^0.1.0",
     "@trpc/server": "11.0.0-next-beta.294",
     "superjson": "2.2.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:^0.2.0",
-    "@acme/prettier-config": "workspace:^0.1.0",
-    "@acme/tsconfig": "workspace:^0.1.0",
+    "@appli/eslint-config": "workspace:^0.2.0",
+    "@appli/prettier-config": "workspace:^0.1.0",
+    "@appli/tsconfig": "workspace:^0.1.0",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3"
@@ -32,8 +31,8 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@acme/eslint-config/base"
+      "@appli/eslint-config/base"
     ]
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@appli/prettier-config"
 }

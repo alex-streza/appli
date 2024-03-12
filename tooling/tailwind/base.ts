@@ -39,9 +39,33 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gray: {
+          "50": "hsl(0, 0%, 96%)",
+          "100": "hsl(0, 0%, 94%)",
+          "200": "hsl(0, 0%, 86%)",
+          "300": "hsl(0, 0%, 74%)",
+          "400": "hsl(0, 0%, 60%)",
+          "500": "hsl(0, 0%, 49%)",
+          "600": "hsl(0, 0%, 40%)",
+          "700": "hsl(0, 0%, 32%)",
+          "800": "hsl(0, 0%, 27%)",
+          "900": "hsl(0, 0%, 24%)",
+          "950": "hsl(0, 0%, 16%)",
+        },
       },
       borderColor: {
         DEFAULT: "hsl(var(--border))",
+      },
+      animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
       },
     },
   },

@@ -2,14 +2,17 @@ import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
-import { cn } from "@acme/ui";
-import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
-import { Toaster } from "@acme/ui/toast";
+import { Logo } from "@appli/ui/components/logo";
+import { cn } from "@appli/ui/lib/utils";
 
 import { env } from "~/env";
 import { TRPCReactProvider } from "~/trpc/react";
 
-import "~/app/globals.css";
+import "@appli/ui/globals.css";
+
+import { GridDetail } from "@appli/ui";
+
+import { Navigation } from "./_components/navigation";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -44,18 +47,16 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans text-foreground antialiased",
+          "min-h-screen overflow-x-hidden bg-background font-sans text-foreground antialiased",
           GeistSans.variable,
           GeistMono.variable,
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>{props.children}</TRPCReactProvider>
-          <div className="absolute bottom-4 right-4">
-            <ThemeToggle />
-          </div>
-          <Toaster />
-        </ThemeProvider>
+        <TRPCReactProvider>
+          <Navigation />
+          {props.children}
+          <GridDetail />
+        </TRPCReactProvider>
       </body>
     </html>
   );
