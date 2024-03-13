@@ -2,7 +2,8 @@
   <h1 align="center">Appli: Streamline tech job applications</h1>
 </a>
 
- <img width="1440" alt="dashboard_mockup" src="https://github.com/alex-streza/Badget/assets/24507211/2c2b8e43-3d18-4b28-b8d0-5dc0cbdb530f">
+
+ <img width="1440" alt="dashboard_mockup" src="https://github.com/alex-streza/appli/assets/72100849/2c5e207e-d0d4-4758-880d-51c056af4a56">
 
 <p align="center">
   Organize your job applications, track your progress, and get hired faster with Appli.
