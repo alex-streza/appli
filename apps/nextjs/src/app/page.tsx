@@ -215,7 +215,7 @@ export default async function HomePage() {
         speed="slow"
         pauseOnHover={false}
       />
-      <div className="relative h-80 md:hidden">
+      {/* <div className="relative h-80 md:hidden">
         <div className="absolute -right-20 mx-0 mt-10 h-full w-screen rounded-t-2xl bg-white p-4 md:mx-10 md:block md:w-full">
           <div className="flex gap-3">
             <div className="h-3 w-3 rounded-full bg-red-300" />
@@ -223,10 +223,10 @@ export default async function HomePage() {
             <div className="h-3 w-3 rounded-full bg-green-300" />
           </div>
           <div className="relative mt-5 h-full w-full">
-            {/* <Image src="/hero.png" alt="Next.js" layout="fill" /> */}
+            <Image src="/hero.png" alt="Next.js" layout="fill" />
           </div>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }

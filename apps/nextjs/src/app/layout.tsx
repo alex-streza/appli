@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
-import { Logo } from "@appli/ui/components/logo";
 import { cn } from "@appli/ui/lib/utils";
 
 import { env } from "~/env";

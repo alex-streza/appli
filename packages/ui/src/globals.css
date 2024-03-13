@@ -10,7 +10,7 @@
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
 
-    --popover: 0 0% 100%;
+    --popover: 0 0% 99%;
     --popover-foreground: 240 10% 3.9%;
 
     --primary: 0 0% 24%;
@@ -28,9 +28,9 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
+    --border: 0 0% 86%;
     --input: 0 0% 86%;
-    --ring: 240 10% 3.9%;
+    --ring: 0 0% 86%;
 
     --radius: 0.5rem;
   }
@@ -42,6 +42,10 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  .container {
+    @apply w-full !max-w-none px-5 md:px-[160px];
   }
 
   .hash-gray {

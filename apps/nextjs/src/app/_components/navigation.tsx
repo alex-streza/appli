@@ -1,30 +1,110 @@
 import Link from "next/link";
-import { GithubLogo } from "@phosphor-icons/react/dist/ssr";
+import {
+  LoginLink,
+  LogoutLink,
+  RegisterLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import {
+  GithubLogo,
+  GoogleChromeLogo,
+  House,
+  Key,
+  SignOut,
+  UserCircle,
+  UserCircleGear,
+} from "@phosphor-icons/react/dist/ssr";
 
-import { Button, Logo } from "@appli/ui";
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Logo,
+} from "@appli/ui";
+import { cn } from "@appli/ui/lib/utils";
 
-export const Navigation = () => {
+export const Navigation = async () => {
+  const { isAuthenticated } = getKindeServerSession();
+
+  const authenticated = await isAuthenticated();
+
   return (
-    <nav className="flex w-full items-center justify-between p-5 md:px-40 md:py-8">
+    <nav
+      className={cn(
+        "fixed left-0 top-0 z-10 flex w-full items-center justify-between p-5 md:px-40",
+        authenticated && "bg-white",
+      )}
+    >
       <Link href="/">
         <Logo />
       </Link>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
         <a
           href="https://github.com/alex-streza/appli"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="secondary" size="icon">
+          <Button variant="secondary" className="h-8">
             <GithubLogo weight="fill" size={24} />
           </Button>
         </a>
-        <Link href="/login">
-          <Button variant="ghost">Login</Button>
+        {!authenticated && (
+          <>
+            <LoginLink>
+              <Button variant="ghost">Login</Button>
+            </LoginLink>
+            <RegisterLink>
+              <Button>Register</Button>
+            </RegisterLink>
+          </>
+        )}
+        {authenticated && (
+          <>
+            <Link
+              href="/dashboard"
+              className="flex flex-col items-center gap-0 font-medium"
+            >
+              <House size={24} />
+              Home
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex flex-col items-center gap-0 font-medium opacity-50 transition-all data-[state=open]:opacity-100">
+                <UserCircle size={24} />
+                You
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <UserCircleGear size={20} />
+                  Account settings
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <GoogleChromeLogo size={20} />
+                  Install extension
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Key size={20} />
+                  Copy API key
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <LogoutLink>
+                  <DropdownMenuItem className="text-red-600 focus:text-red-500">
+                    <SignOut size={20} />
+                    Log out
+                  </DropdownMenuItem>
+                </LogoutLink>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
+        )}
+        {/* <Link href="/login">
+        <Button variant="ghost">Login</Button>
         </Link>
         <Link href="/register">
           <Button>Register</Button>
-        </Link>
+        </Link> */}
       </div>
     </nav>
   );
