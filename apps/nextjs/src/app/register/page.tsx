@@ -1,4 +1,4 @@
-import { RegisterForm } from "../_components/register-form";
+// import { RegisterForm } from "../_components/register-form";
 
 export default async function RegisterPage() {
   return (
@@ -8,7 +8,7 @@ export default async function RegisterPage() {
         <p className="mt-3 max-w-xl text-center text-sm font-medium text-gray-500 md:text-base">
           Enter your e-mail and we&apos;ll send you a magic link to login.
         </p>
-        <RegisterForm />
+        {/* <RegisterForm /> */}
       </div>
     </main>
   );
