@@ -29,7 +29,7 @@ export default async function DashboardPage() {
 
   return (
     <main className="container">
-      <div className="container fixed left-0 top-[88px] z-10 w-screen bg-white pb-5">
+      <div className="container fixed left-0 top-[72px] z-10 w-screen bg-white pb-5">
         <h1 className="text-2xl font-bold">Welcome back, {user?.given_name}</h1>
         <Label className="mb-3 mt-5 block">Filter job applications</Label>
         <div className="relative">

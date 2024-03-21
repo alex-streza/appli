@@ -1,10 +1,16 @@
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
 import { InfiniteMovingCards } from "@appli/ui";
+import { cn } from "@appli/ui/lib/utils";
 
 import { JoinWaitlist } from "./_components/join-waitlist";
 
 export default async function HomePage() {
+  const { isAuthenticated } = getKindeServerSession();
+  const authenticated = await isAuthenticated();
+
   return (
-    <main className="container h-screen py-16">
+    <main className={cn("container h-screen py-10", authenticated && "pt-32")}>
       <div className="mx-auto mb-10 flex max-w-3xl flex-col items-center">
         <h1 className="text-center text-5xl font-bold">
           Streamline all your tech job applications
