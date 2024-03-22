@@ -12,13 +12,15 @@
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint .",
     "push": "pnpm with-env drizzle-kit push:pg",
+    "seed": "pnpm with-env tsx ./src/seed.ts",
     "studio": "pnpm with-env drizzle-kit studio",
     "typecheck": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "drizzle-orm": "^0.29.4",
-    "postgres": "^3.4.3"
+    "postgres": "^3.4.3",
+    "tsx": "^4.7.1"
   },
   "devDependencies": {
     "@appli/eslint-config": "workspace:^0.2.0",

@@ -29,7 +29,7 @@ export const Navigation = async () => {
   return (
     <nav
       className={cn(
-        "z-10 flex w-full items-center justify-between px-5 py-3 md:px-40 md:py-5",
+        "z-10 flex w-full items-center justify-between px-5 py-3 md:px-20 md:py-5",
         authenticated && "fixed left-0 top-0 bg-white",
       )}
     >

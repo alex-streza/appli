@@ -1,4 +1,6 @@
+import type { Status } from "node_modules/@appli/db/src/schema/application";
 import { Calendar, Code, Coin, Link } from "@phosphor-icons/react/dist/ssr";
+import spacetime from "spacetime";
 
 import {
   Button,
@@ -14,20 +16,45 @@ import {
   SelectValue,
 } from "@appli/ui";
 
-export const ApplicationCard = () => {
+export interface ApplicationCardProps {
+  id: number;
+  company: string;
+  companyURL: string;
+  title: string;
+  technologies: string[] | null;
+  savedAt: Date;
+  location: string | null;
+  salary: string | null;
+  appliedAt: Date | null;
+  url: string;
+  status: Status;
+}
+
+export const ApplicationCard = ({
+  id,
+  company,
+  companyURL,
+  title,
+  appliedAt,
+  technologies,
+  status,
+  savedAt,
+  location,
+  salary,
+  url,
+}: ApplicationCardProps) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>
           <img
-            // 128x128
-            src="https://www.google.com/s2/favicons?domain=morrow.to&sz=256"
+            src={`https://www.google.com/s2/favicons?domain=${companyURL}&sz=256`}
             alt="Morrow"
             className="h-12 w-12 rounded-full border border-border"
           />
           <div className="flex flex-col gap-0">
-            <span className="font-bold">Morrow</span>
-            <span className="font-medium text-gray-500">Product Engineer</span>
+            <span className="font-bold">{title}</span>
+            <span className="font-medium text-gray-500">{company}</span>
           </div>
         </CardTitle>
         <Button variant="ghost" className="absolute right-3 top-3" size="icon">
@@ -38,15 +65,15 @@ export const ApplicationCard = () => {
         <ul className="flex flex-col gap-2 text-sm font-semibold text-gray-700">
           <li className="flex items-center gap-2">
             <Code size={20} />
-            Next.js, React, Typescript, +3 others
+            {technologies.join(", ")}
           </li>
           <li className="flex items-center gap-2">
             <Calendar size={20} />
-            saved 3 days ago from Otta
+            saved {spacetime().since(savedAt).rounded} from Otta
           </li>
           <li className="flex items-center gap-2">
             <Coin size={20} />
-            £60-80k
+            {salary ?? "Not specified"}
           </li>
         </ul>
       </CardContent>

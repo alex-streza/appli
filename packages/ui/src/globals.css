@@ -45,7 +45,7 @@
   }
 
   .container {
-    @apply w-full !max-w-none px-5 md:px-[160px];
+    @apply w-full !max-w-none px-5 md:px-20;
   }
 
   .hash-gray {

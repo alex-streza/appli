@@ -1,38 +1,42 @@
 import { sql } from "drizzle-orm";
-import {
-  pgEnum,
-  serial,
-  timestamp,
-  uuid,
-  varchar
-} from "drizzle-orm/pg-core";
+import { pgEnum, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 
 import { pgTable } from "./_table";
 import { users } from "./user";
 
-
 export const statusEnum = pgEnum("status", [
   "SAVED",
-  "STARTED",
-  "SUBMITTED",
   "APPLIED",
   "INTERVIEWING",
   "OFFERED",
+  "GHOSTED",
+  "REJECTED",
 ]);
 
 export const applications = pgTable("application", {
   id: serial("id").primaryKey(),
-  title: varchar("name", { length: 256 }),
-  raw_description: varchar("raw_description"),
-  status: statusEnum("status"),
-  url: varchar("url", { length: 128 }),
+  title: varchar("name", { length: 256 }).notNull(),
+  rawDescription: varchar("raw_description"),
+  salary: varchar("salary", { length: 64 }),
+  location: varchar("location", { length: 128 }),
+  company: varchar("company", { length: 128 }).notNull(),
+  companyURL: varchar("company_url", { length: 128 }).notNull(),
+  url: varchar("url", { length: 128 }).notNull(),
+  technologies: varchar("technologies", { length: 64 }).array(),
 
-  userId: uuid("user_id")
+  status: statusEnum("status").default("SAVED").notNull(),
+
+  userId: varchar("user_id")
     .notNull()
     .references(() => users.id),
 
+  savedAt: timestamp("saved_at").notNull(),
+  appliedAt: timestamp("applied_at"),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updatedAt"),
 });
+
+export type Application = typeof applications.$inferSelect;
+export type Status = Application["status"];

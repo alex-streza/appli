@@ -1,13 +1,11 @@
-import { sql } from "drizzle-orm";
-import {
-  timestamp,
-  uuid,
-  varchar
-} from "drizzle-orm/pg-core";
+import { relations, sql } from "drizzle-orm";
+import { timestamp, varchar } from "drizzle-orm/pg-core";
+
 import { pgTable } from "./_table";
+import { applications } from "./application";
 
 export const users = pgTable("user", {
-  id: uuid("id").primaryKey(),
+  id: varchar("id").primaryKey(),
   firstName: varchar("first_name", { length: 64 }),
   lastName: varchar("last_name", { length: 64 }),
   email: varchar("email", { length: 64 }).unique(),
@@ -18,3 +16,7 @@ export const users = pgTable("user", {
     .notNull(),
   updatedAt: timestamp("updatedAt"),
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+  applications: many(applications),
+}));

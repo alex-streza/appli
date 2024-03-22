@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { headers } from "next/headers";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import { createCaller, createTRPCContext } from "@appli/api";
 
@@ -11,8 +12,11 @@ const createContext = cache(async () => {
   const heads = new Headers(headers());
   heads.set("x-trpc-source", "rsc");
 
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   return createTRPCContext({
-    session: null,
+    session: user ? { user } : null,
     headers: heads,
   });
 });

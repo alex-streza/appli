@@ -12,7 +12,7 @@ export const JoinWaitlist = () => {
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const joinWaitlist = api.post.joinWaitlist.useMutation({
+  const joinWaitlist = api.waitlist.joinWaitlist.useMutation({
     onError: (error) => {
       setError(error.message);
     },
