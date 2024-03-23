@@ -1,4 +1,6 @@
-import { eq, schema } from "@appli/db";
+import { z } from "zod";
+
+import { and, eq, schema } from "@appli/db";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -6,7 +8,7 @@ const applications = schema.applications;
 type Application = typeof applications.$inferSelect;
 
 export const applicationRouter = createTRPCRouter({
-  getApplications: protectedProcedure.mutation(async ({ ctx }) => {
+  getApplications: protectedProcedure.query(async ({ ctx }) => {
     const userApplications = await ctx.db
       .select()
       .from(applications)
@@ -39,4 +41,28 @@ export const applicationRouter = createTRPCRouter({
       applications: applicationsGroupedByStatus,
     };
   }),
+  updateApplicationStatus: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        status: z.enum(schema.statusEnum.enumValues),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(applications)
+        .set({
+          status: input.status as Application["status"],
+        })
+        .where(
+          and(
+            eq(applications.id, input.id),
+            eq(applications.userId, ctx.session.user.id),
+          ),
+        );
+
+      return {
+        success: true,
+      };
+    }),
 });

@@ -1,5 +1,6 @@
 import type { Status } from "node_modules/@appli/db/src/schema/application";
 import { Calendar, Code, Coin, Link } from "@phosphor-icons/react/dist/ssr";
+import { statusEnum } from "node_modules/@appli/db/src/schema/application";
 import spacetime from "spacetime";
 
 import {
@@ -15,6 +16,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@appli/ui";
+
+import { api } from "~/trpc/react";
+
+const statuses = statusEnum.enumValues;
 
 export interface ApplicationCardProps {
   id: number;
@@ -43,6 +48,15 @@ export const ApplicationCard = ({
   salary,
   url,
 }: ApplicationCardProps) => {
+  const updateApplicationStatus =
+    api.application.updateApplicationStatus.useMutation({
+      onSuccess: async () => {
+        await refetch();
+      },
+    });
+
+  const { refetch } = api.application.getApplications.useQuery();
+
   return (
     <Card>
       <CardHeader>
@@ -54,7 +68,9 @@ export const ApplicationCard = ({
           />
           <div className="flex flex-col gap-0">
             <span className="font-bold">{title}</span>
-            <span className="font-medium text-gray-500">{company}</span>
+            <span className="font-medium text-muted-foreground/80">
+              {company}
+            </span>
           </div>
         </CardTitle>
         <Button variant="ghost" className="absolute right-3 top-3" size="icon">
@@ -62,7 +78,7 @@ export const ApplicationCard = ({
         </Button>
       </CardHeader>
       <CardContent>
-        <ul className="flex flex-col gap-2 text-sm font-semibold text-gray-700">
+        <ul className="text-mutmuted-foregrounded flex flex-col gap-2 text-sm font-semibold">
           <li className="flex items-center gap-2">
             <Code size={20} />
             {technologies.join(", ")}
@@ -84,14 +100,24 @@ export const ApplicationCard = ({
             View
           </Button>
         </div>
-        <Select>
-          <SelectTrigger className="w-[120px]">
+        <Select
+          defaultValue={status}
+          onValueChange={(value) => {
+            updateApplicationStatus.mutate({
+              id,
+              status: value as Status,
+            });
+          }}
+        >
+          <SelectTrigger className="w-[120px] lowercase">
             <SelectValue placeholder="status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="saved">saved</SelectItem>
-            <SelectItem value="applied">applied</SelectItem>
-            <SelectItem value="offer">offer</SelectItem>
+            {statuses.map((status) => (
+              <SelectItem key={status} value={status} className="lowercase">
+                {status}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </CardFooter>

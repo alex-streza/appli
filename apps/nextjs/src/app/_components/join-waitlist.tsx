@@ -42,7 +42,7 @@ export const JoinWaitlist = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <Envelope
-          className="absolute left-4 top-3 text-zinc-300 transition-colors peer-focus:text-zinc-900"
+          className="absolute left-4 top-3 text-foreground/50 transition-colors peer-focus:text-foreground/100"
           size={24}
         />
         <Button

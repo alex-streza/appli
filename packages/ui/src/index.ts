@@ -11,3 +11,6 @@ export * from "./components/select";
 export * from "./components/dropdown-menu";
 export * from "./components/card";
 export * from "./components/dialog";
+export * from "./components/theme-provider";
+export * from "./components/theme-toggle";
+export * from "./components/collapsible";

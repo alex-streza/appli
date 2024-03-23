@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
+import { ThemeProvider } from "@appli/ui";
 import { cn } from "@appli/ui/lib/utils";
 
 import { env } from "~/env";
@@ -51,11 +52,18 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <TRPCReactProvider>
-          <Navigation />
-          {props.children}
-          <GridDetail />
-        </TRPCReactProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
+            <Navigation />
+            {props.children}
+            <GridDetail />
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

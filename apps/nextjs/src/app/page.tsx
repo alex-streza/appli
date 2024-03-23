@@ -15,7 +15,7 @@ export default async function HomePage() {
         <h1 className="text-center text-5xl font-bold">
           Streamline all your tech job applications
         </h1>
-        <p className="mt-3 max-w-xl text-center text-sm font-medium text-gray-500 md:text-base">
+        <p className="mt-3 max-w-xl text-center text-sm font-medium text-muted-foreground md:text-base">
           Join the waitlist and you’ll soon be able to install the Chrome
           extension and on your next application you can save, auto-fill, get
           reminders and obviously organize.
@@ -222,13 +222,13 @@ export default async function HomePage() {
         pauseOnHover={false}
       />
       {/* <div className="relative h-80 md:hidden">
-        <div className="absolute -right-20 mx-0 mt-10 h-full w-screen rounded-t-2xl bg-white p-4 md:mx-10 md:block md:w-full">
+        <div className="absolute w-screen h-full p-4 mx-0 mt-10 bg-white -right-20 rounded-t-2xl md:mx-10 md:block md:w-full">
           <div className="flex gap-3">
-            <div className="h-3 w-3 rounded-full bg-red-300" />
-            <div className="h-3 w-3 rounded-full bg-yellow-300" />
-            <div className="h-3 w-3 rounded-full bg-green-300" />
+            <div className="w-3 h-3 bg-red-300 rounded-full" />
+            <div className="w-3 h-3 bg-yellow-300 rounded-full" />
+            <div className="w-3 h-3 bg-green-300 rounded-full" />
           </div>
-          <div className="relative mt-5 h-full w-full">
+          <div className="relative w-full h-full mt-5">
             <Image src="/hero.png" alt="Next.js" layout="fill" />
           </div>
         </div>

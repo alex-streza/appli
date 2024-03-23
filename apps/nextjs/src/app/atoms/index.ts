@@ -8,7 +8,14 @@ export const filtersAtom = atom<{
   descending: Record<Status, boolean>;
 }>({
   search: "",
-  statuses: ["SAVED"],
+  statuses: [
+    "SAVED",
+    "APPLIED",
+    "INTERVIEWING",
+    "GHOSTED",
+    "OFFERED",
+    "REJECTED",
+  ],
   sortBy: {
     SAVED: "date",
     APPLIED: "date",

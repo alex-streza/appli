@@ -19,6 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Logo,
+  ThemeToggle,
 } from "@appli/ui";
 import { cn } from "@appli/ui/lib/utils";
 
@@ -30,13 +31,14 @@ export const Navigation = async () => {
     <nav
       className={cn(
         "z-10 flex w-full items-center justify-between px-5 py-3 md:px-20 md:py-5",
-        authenticated && "fixed left-0 top-0 bg-white",
+        authenticated && "fixed left-0 top-0 bg-card",
       )}
     >
       <Link href="/">
         <Logo />
       </Link>
       <div className="flex items-center gap-5">
+        <ThemeToggle />
         <a
           href="https://github.com/alex-streza/appli"
           target="_blank"

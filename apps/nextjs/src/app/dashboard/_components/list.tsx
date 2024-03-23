@@ -1,7 +1,10 @@
 "use client";
 
-import type { Status } from "node_modules/@appli/db/src/schema/application";
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import type {
+  Application,
+  Status,
+} from "node_modules/@appli/db/src/schema/application";
+import { ReactNode, useEffect, useMemo } from "react";
 import {
   ClockClockwise,
   FilePlus,
@@ -13,16 +16,20 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { useAtom } from "jotai";
 
+import { RouterOutputs } from "@appli/api";
 import { Input, Label, ToggleGroup, ToggleGroupItem } from "@appli/ui";
 import { cn } from "@appli/ui/lib/utils";
 
-import type { ApplicationCardProps } from "./card";
 import { filtersAtom } from "~/app/atoms";
+import { api } from "~/trpc/react";
 import { ApplicationsSection } from "./section";
+
+type ApplicationsGroup =
+  RouterOutputs["application"]["getApplications"]["applications"];
 
 interface ListProps {
   name: string;
-  applications: Record<Status, ApplicationCardProps[]>;
+  applications: ApplicationsGroup;
 }
 
 const icons: Record<Status, ReactNode> = {
@@ -38,12 +45,16 @@ export const List = ({
   name,
   applications: defaultApplications,
 }: ListProps) => {
-  const [applications, setApplications] = useState(defaultApplications);
+  const { data } = api.application.getApplications.useQuery(undefined, {
+    initialData: {
+      applications: defaultApplications,
+    },
+  });
 
   const [filters, setFilters] = useAtom(filtersAtom);
 
-  useEffect(() => {
-    const filteredApplications = Object.entries(defaultApplications).reduce(
+  const applications = useMemo(() => {
+    const applications = Object.entries(data.applications).reduce(
       (acc, [status, applications]) => {
         const filteredApplications = applications.filter(
           (application) =>
@@ -60,11 +71,11 @@ export const List = ({
           [status]: filteredApplications,
         };
       },
-      {} as Record<Status, ApplicationCardProps[]>,
+      {} as ApplicationsGroup,
     );
 
-    setApplications(filteredApplications);
-  }, [defaultApplications, filters]);
+    return applications;
+  }, [data.applications, filters.search]);
 
   const statuses = useMemo(
     () => Object.keys(applications) as Status[],
@@ -73,7 +84,7 @@ export const List = ({
 
   return (
     <div>
-      <div className="container fixed left-0 top-[72px] z-10 w-screen border-b border-border bg-white pb-5">
+      <div className="container fixed left-0 top-[72px] z-10 w-screen border-b border-border bg-card pb-5">
         <h1 className="text-2xl font-bold">Welcome back, {name}</h1>
         <Label className="mb-3 mt-5 block">Filter job applications</Label>
         <div className="relative max-w-[400px]">
@@ -96,7 +107,7 @@ export const List = ({
         </div>
         <ToggleGroup
           type="multiple"
-          className="flex flex-wrap justify-start gap-3"
+          className="flex max-w-full justify-start gap-3 overflow-auto"
           value={filters.statuses}
           onValueChange={(statuses) => {
             setFilters({
@@ -110,10 +121,9 @@ export const List = ({
               key={status}
               value={status}
               disabled={applications[status].length === 0}
-              defaultValue={filters.statuses}
               className={cn(
                 status === "REJECTED" &&
-                  "border-red-200 bg-red-100 text-red-500 data-[state=on]:border-red-100 data-[state=on]:bg-red-500 data-[state=on]:text-red-100",
+                  "border-red-200 bg-red-100 text-red-500 data-[state=on]:border-red-100 data-[state=on]:bg-red-500 data-[state=on]:text-red-100 dark:bg-red-900/50 dark:data-[state=on]:bg-red-900",
               )}
             >
               {icons[status]}
@@ -122,19 +132,17 @@ export const List = ({
           ))}
         </ToggleGroup>
       </div>
-      {Object.entries(applications)
-        .filter(
-          ([status, applications]) =>
-            applications.length > 0 &&
-            filters.statuses.includes(status as Status),
-        )
-        .map(([status, applications]) => (
-          <ApplicationsSection
-            key={status}
-            status={status as Status}
-            applications={applications}
-          />
-        ))}
+      <div className="mt-72">
+        {Object.entries(applications)
+          .filter(([status, applications]) => applications.length > 0)
+          .map(([status, applications]) => (
+            <ApplicationsSection
+              key={status}
+              status={status as Status}
+              applications={applications}
+            />
+          ))}
+      </div>
     </div>
   );
 };
