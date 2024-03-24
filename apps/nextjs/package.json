@@ -27,6 +27,7 @@
     "@trpc/react-query": "11.0.0-next-beta.294",
     "@trpc/server": "11.0.0-next-beta.294",
     "geist": "^1.2.2",
+    "groq-sdk": "^0.3.2",
     "jotai": "^2.7.1",
     "next": "^14.1.0",
     "next-themes": "^0.2.1",

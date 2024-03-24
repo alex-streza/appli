@@ -1,0 +1,44 @@
+{
+  "name": "@appli/extension",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3001",
+    "build": "tsc && vite build",
+    "build:ex": "npm run build && copy src\\manifest.json dist\\",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@appli/eslint-config": "workspace:^0.2.0",
+    "@appli/prettier-config": "workspace:^0.1.0",
+    "@appli/tailwind-config": "workspace:^0.1.0",
+    "@appli/tsconfig": "workspace:^0.1.0",
+    "@crxjs/vite-plugin": "^2.0.0-beta.21",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "@types/chrome": "^0.0.259",
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vite": "^4.4.5"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@appli/eslint-config/base",
+      "@appli/eslint-config/react"
+    ]
+  },
+  "prettier": "@appli/prettier-config"
+}

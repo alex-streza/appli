@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgEnum, serial, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgEnum, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 import { pgTable } from "./_table";
 import { users } from "./user";
@@ -16,7 +16,7 @@ export const statusEnum = pgEnum("status", [
 export const applications = pgTable("application", {
   id: serial("id").primaryKey(),
   title: varchar("name", { length: 256 }).notNull(),
-  rawDescription: varchar("raw_description"),
+  rawDescription: text("raw_description"),
   salary: varchar("salary", { length: 64 }),
   location: varchar("location", { length: 128 }),
   company: varchar("company", { length: 128 }).notNull(),

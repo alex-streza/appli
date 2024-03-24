@@ -11,6 +11,7 @@ import {
 
 import { db } from ".";
 import { applications } from "./schema/application";
+import { users } from "./schema/user";
 
 type ApplicationToBeInserted = typeof applications.$inferInsert;
 
@@ -50,6 +51,12 @@ async function seed() {
   await db.delete(applications);
 
   const userId = "kp_fe4175a0357f45ba907057ec9eaa2406";
+  await db.insert(users).values({
+    id: userId,
+    firstName: "Alex",
+    email: "alex.streza@snowfox.art",
+  });
+
   const newApplicationRows = generateApplicationRows(5, userId); // Generating 5 applications
   await db.insert(applications).values(newApplicationRows).returning();
 }

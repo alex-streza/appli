@@ -84,7 +84,7 @@ export const List = ({
 
   return (
     <div>
-      <div className="container fixed left-0 top-[72px] z-10 w-screen border-b border-border bg-card pb-5">
+      <div className="container fixed left-0 top-[72px] z-50 w-screen border-b border-border bg-card pb-5">
         <h1 className="text-2xl font-bold">Welcome back, {name}</h1>
         <Label className="mb-3 mt-5 block">Filter job applications</Label>
         <div className="relative max-w-[400px]">
@@ -123,7 +123,7 @@ export const List = ({
               disabled={applications[status].length === 0}
               className={cn(
                 status === "REJECTED" &&
-                  "border-red-200 bg-red-100 text-red-500 data-[state=on]:border-red-100 data-[state=on]:bg-red-500 data-[state=on]:text-red-100 dark:bg-red-900/50 dark:data-[state=on]:bg-red-900",
+                  "border-red-200 bg-red-100 text-red-500 data-[state=on]:border-red-100 data-[state=on]:bg-red-500 data-[state=on]:text-red-100 dark:border-red-800 dark:bg-red-900/50 dark:data-[state=on]:bg-red-900",
               )}
             >
               {icons[status]}

@@ -41,7 +41,7 @@ export const ApplicationCard = ({
   companyURL,
   title,
   appliedAt,
-  technologies,
+  technologies = [],
   status,
   savedAt,
   location,
@@ -61,11 +61,18 @@ export const ApplicationCard = ({
     <Card>
       <CardHeader>
         <CardTitle>
-          <img
-            src={`https://www.google.com/s2/favicons?domain=${companyURL}&sz=256`}
-            alt="Morrow"
-            className="h-12 w-12 rounded-full border border-border"
-          />
+          <a
+            href={companyURL}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full bg-foreground"
+          >
+            <img
+              src={`https://www.google.com/s2/favicons?domain=${companyURL}&sz=256`}
+              alt="company logo"
+              className="h-12 w-12 rounded-full border border-border transition-all hover:opacity-90"
+            />
+          </a>
           <div className="flex flex-col gap-0">
             <span className="font-bold">{title}</span>
             <span className="font-medium text-muted-foreground/80">
@@ -73,15 +80,29 @@ export const ApplicationCard = ({
             </span>
           </div>
         </CardTitle>
-        <Button variant="ghost" className="absolute right-3 top-3" size="icon">
-          <Link size={20} />
-        </Button>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="absolute right-3 top-3"
+        >
+          <Button variant="ghost" size="icon">
+            <Link size={20} />
+          </Button>
+        </a>
       </CardHeader>
       <CardContent>
         <ul className="text-mutmuted-foregrounded flex flex-col gap-2 text-sm font-semibold">
-          <li className="flex items-center gap-2">
+          <li className="relative flex items-center gap-2">
             <Code size={20} />
-            {technologies.join(", ")}
+            <span>{technologies.slice(0, 3).join(", ")}</span>
+            {technologies.length > 3 && (
+              <span className="text-muted-foregrounded absolute right-0 top-0 z-10 bg-card">
+                {" "}
+                +{technologies.length - 3} more
+                <span className="absolute -left-6 top-0 h-6 w-6 bg-gradient-to-r from-card/0 to-card"></span>
+              </span>
+            )}
           </li>
           <li className="flex items-center gap-2">
             <Calendar size={20} />

@@ -19,6 +19,7 @@ export const env = createEnv({
     KINDE_SITE_URL: z.string(),
     KINDE_POST_LOGOUT_REDIRECT_URL: z.string(),
     KINDE_POST_LOGIN_REDIRECT_URL: z.string(),
+    GROQ_API_KEY: z.string(),
     DATABASE_URL: z
       .string()
       .url()
