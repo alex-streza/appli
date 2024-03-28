@@ -1,9 +1,5 @@
 import Link from "next/link";
-import {
-  LoginLink,
-  LogoutLink,
-  RegisterLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import {
   GithubLogo,
@@ -23,25 +19,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Logo,
+  ThemeToggle,
 } from "@appli/ui";
 import { cn } from "@appli/ui/lib/utils";
 
 export const Navigation = async () => {
   const { isAuthenticated } = getKindeServerSession();
-
   const authenticated = await isAuthenticated();
 
   return (
     <nav
       className={cn(
-        "fixed left-0 top-0 z-10 flex w-full items-center justify-between p-5 md:px-40",
-        authenticated && "bg-white",
+        "z-10 flex w-full items-center justify-between px-5 py-3 md:px-20 md:py-5",
+        authenticated && "fixed left-0 top-0 bg-card",
       )}
     >
       <Link href="/">
         <Logo />
       </Link>
       <div className="flex items-center gap-5">
+        <ThemeToggle />
         <a
           href="https://github.com/alex-streza/appli"
           target="_blank"
@@ -53,12 +50,12 @@ export const Navigation = async () => {
         </a>
         {!authenticated && (
           <>
-            <LoginLink>
+            <Link href="/login">
               <Button variant="ghost">Login</Button>
-            </LoginLink>
-            <RegisterLink>
+            </Link>
+            <Link href="/register">
               <Button>Register</Button>
-            </RegisterLink>
+            </Link>
           </>
         )}
         {authenticated && (

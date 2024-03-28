@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
+import { ThemeProvider } from "@appli/ui";
 import { cn } from "@appli/ui/lib/utils";
 
 import { env } from "~/env";
@@ -19,18 +20,18 @@ export const metadata: Metadata = {
       ? "https://turbo.t3.gg"
       : "http://localhost:3000",
   ),
-  title: "Appli",
-  description: "Appli: Streamline tech job applications",
+  title: "Appli | Streamline job applications",
+  description: "Appli is a platform to streamline job applications",
   openGraph: {
-    title: "Appli",
-    description: "Appli: Streamline tech job applications",
-    url: "https://create-t3-turbo.vercel.app",
-    siteName: "Create T3 Turbo",
+    title: "Appli | Streamline job applications",
+    description: "Appli is a platform to streamline job applications",
+    url: env.KINDE_SITE_URL,
+    siteName: "Appli",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
+    site: "@alex_streza",
+    creator: "@alex_streza",
   },
 };
 
@@ -51,11 +52,18 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <TRPCReactProvider>
-          <Navigation />
-          {props.children}
-          <GridDetail />
-        </TRPCReactProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
+            <Navigation />
+            {props.children}
+            <GridDetail />
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

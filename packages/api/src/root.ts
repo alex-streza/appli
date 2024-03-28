@@ -1,10 +1,12 @@
+import { applicationRouter } from "./router/application";
 import { authRouter } from "./router/auth";
 import { waitlistRouter } from "./router/waitlist";
 import { createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
   auth: authRouter,
-  post: waitlistRouter,
+  waitlist: waitlistRouter,
+  application: applicationRouter,
 });
 
 // export type definition of API

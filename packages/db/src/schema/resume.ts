@@ -1,15 +1,8 @@
 import { sql } from "drizzle-orm";
-import {
-  json,
-  serial,
-  timestamp,
-  uuid,
-  varchar
-} from "drizzle-orm/pg-core";
+import { json, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 
-import { users } from "./user";
 import { pgTable } from "./_table";
-
+import { users } from "./user";
 
 export const resumes = pgTable("resume", {
   id: serial("id").primaryKey(),
@@ -20,7 +13,7 @@ export const resumes = pgTable("resume", {
   website: varchar("personal_website", { length: 128 }),
   fields: json("fields"),
 
-  userId: uuid("user_id")
+  userId: varchar("user_id")
     .notNull()
     .references(() => users.id),
 

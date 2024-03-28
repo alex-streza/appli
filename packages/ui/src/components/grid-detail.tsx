@@ -18,7 +18,7 @@ export const GridDetail = ({ isBottom }: GridDetailProps) => {
         {[...Array(12)].map((_, i) => (
           <div
             key={i}
-            className={`w-[1px] border-r border-dashed border-gray-300`}
+            className={`w-[1px] border-r border-dashed border-foreground/50`}
             style={{
               gridRow: "1/-1",
               gridColumn: `${i + 1}/-1`,
