@@ -79,6 +79,7 @@ cp .env.example .env.local
    1. Create [Kinde](https://kinde.com) Account
    2. Create [Supabase](https://supabase.com/) Account
    3. Create [Stripe](https://stripe.com) Account and download [Stripe CLI](https://docs.stripe.com/stripe-cli)
+   4. Create [Groq](https://console.groq.com) Account 
 
 5. Start the development server from either yarn or turbo:
 
@@ -136,6 +137,7 @@ You can also use `docker-compose` to have a Postgres database locally, instead o
 - [Next.js](https://nextjs.org/) – React framework for building performant apps with the best developer experience
 - [Kinde](https://kinde.com/) – Handle user authentication with ease with providers like Google, Twitter, GitHub, etc.
 - [Drizzle ORM](https://orm.drizzle.team/) – TypeScript ORM that feels like SPA with SSR
+- [Groq Cloud](https://console.groq.com) - AI 
 
 ### Platforms
 
